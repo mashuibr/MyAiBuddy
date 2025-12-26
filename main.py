@@ -1,11 +1,9 @@
-import nltk
-from nltk.chat.util import Chat, reflections
+import openai
+openai.api_key = "your-api-key"
 
-pairs = [
-    ["hi", ["Hello!", "Hi there!"]],
-    ["what is your name?", ["I'm your AiBuddy."]],
-    ["quit", ["Bye!"]]
-]
-
-chat = Chat(pairs, reflections)
-chat.converse()
+def ask_chatbot(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response['choices'][0]['message']['content']
